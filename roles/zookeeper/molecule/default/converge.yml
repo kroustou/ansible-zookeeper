@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include zookeeper"
+      include_role:
+        name: "zookeeper"
