@@ -1,2 +1,5 @@
 ---
-# defaults file for zookeeper
+zookeeper_user: zookeeper
+zookeeper_binary: https://downloads.apache.org/zookeeper/zookeeper-3.7.0/apache-zookeeper-3.7.0-bin.tar.gz
+zookeeper_data_path: /data/zookeeper
+zookeeper_path: /opt

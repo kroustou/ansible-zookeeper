@@ -6,6 +6,16 @@ driver:
 platforms:
   - name: instance
     image: docker.io/pycontribs/ubuntu
+    groups:
+      - zookeeper
+  - name: instance2
+    image: docker.io/pycontribs/ubuntu
+    groups:
+      - zookeeper
+  - name: instance3
+    image: docker.io/pycontribs/ubuntu
+    groups:
+      - zookeeper
 provisioner:
   name: ansible
 verifier:

@@ -2,6 +2,6 @@
 - name: Converge
   hosts: all
   tasks:
-    - name: "Include zookeeper"
+    - name: Include zookeeper
       include_role:
-        name: "zookeeper"
+        name: zookeeper

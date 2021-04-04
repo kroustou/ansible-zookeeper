@@ -1,0 +1,10 @@
+tickTime=2000
+dataDir={{ zookeeper_data_path }}
+clientPort=2181
+clientPort=2181
+initLimit=5
+syncLimit=2
+
+{% for host in groups['zookeeper'] %}
+    {{hostvars[host]}}
+{% endfor %}

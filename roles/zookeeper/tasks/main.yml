@@ -1,4 +1,79 @@
 ---
-- name: Molecule Hello World!
-  debug:
-    msg: Hello, World!
+- name: Make sure java is installed
+  ansible.builtin.apt:
+    pkg:
+    - default-jdk
+    - default-jre
+    update_cache: true
+
+- name: Create zookeeper user account
+  ansible.builtin.user:
+    name: "{{ zookeeper_user }}"
+    comment: Zookeeper user account
+    create_home: false
+
+- name: Create zookeeper data dir
+  ansible.builtin.file:
+    path: "{{ zookeeper_data_path }}"
+    owner: "{{ zookeeper_user }}"
+    group: "{{ zookeeper_user }}"
+    state: directory
+
+- name: Download binary
+  ansible.builtin.unarchive:
+    src: "{{ zookeeper_binary }}"
+    remote_src: true
+    dest: "{{ zookeeper_path }}"
+    owner: "{{ zookeeper_user }}"
+    group: "{{ zookeeper_user }}"
+  register: downloaded_file
+  # Retry in case of network issues
+  until: not downloaded_file.failed
+  retries: 20
+  delay: 3
+
+- name: Zookeeper symlink
+  ansible.builtin.file:
+    src: "{{ zookeeper_path }}/apache-zookeeper-3.7.0-bin"
+    dest: /opt/zookeeper
+    owner: "{{ zookeeper_user }}"
+    group: "{{ zookeeper_user }}"
+    state: link
+
+- name: Owner
+  ansible.builtin.file:
+    path: "{{ zookeeper_path }}/zookeeper"
+    owner: "{{ zookeeper_user }}"
+    group: "{{ zookeeper_user }}"
+
+- name: Render configuration
+  ansible.builtin.template:
+    src: zoo.cfg.j2
+    owner: "{{ zookeeper_user }}"
+    group: "{{ zookeeper_user }}"
+    dest: "{{ zookeeper_path }}/zookeeper/conf/zoo.cfg"
+
+- name: Create Zookeeper service file
+  ansible.builtin.template:
+    src: zookeeper.service.j2
+    owner: "{{ zookeeper_user }}"
+    group: "{{ zookeeper_user }}"
+    dest: /etc/systemd/system/zookeeper.service
+
+- name: Start service
+  ansible.builtin.systemd:
+    state: restarted
+    daemon_reload: true
+    enabled: true
+    name: zookeeper
+
+- name: Pause for 30 seconds to make sure the service is up
+  ansible.builtin.pause:
+    seconds: 30
+
+- name: Populate service facts
+  ansible.builtin.service_facts:
+
+- name: Assert that the process is running
+  ansible.builtin.debug:
+    var: ansible_facts.services
