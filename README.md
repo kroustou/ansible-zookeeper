@@ -1,6 +1,6 @@
 # Deploy zookeeper on Ubuntu
 
-This playbook deploys zookeeper on X number of server. The servers should be defined under the zookeeper group in the `hosts` file.
+This playbook deploys zookeeper on X number of servers. The servers should be defined under the zookeeper group in the `hosts` file.
 
 ## Installation
 To make sure your environment is functional please make sure to run `pip install -r requirements.txt`.
