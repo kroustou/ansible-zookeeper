@@ -53,6 +53,13 @@
     group: "{{ zookeeper_user }}"
     dest: "{{ zookeeper_path }}/zookeeper/conf/zoo.cfg"
 
+- name: Render myid
+  ansible.builtin.template:
+    src: myid.j2
+    owner: "{{ zookeeper_user }}"
+    group: "{{ zookeeper_user }}"
+    dest: "{{ zookeeper_data_path }}/myid"
+
 - name: Create Zookeeper service file
   ansible.builtin.template:
     src: zookeeper.service.j2
@@ -67,13 +74,10 @@
     enabled: true
     name: zookeeper
 
-- name: Pause for 30 seconds to make sure the service is up
-  ansible.builtin.pause:
-    seconds: 30
-
 - name: Populate service facts
   ansible.builtin.service_facts:
 
 - name: Assert that the process is running
-  ansible.builtin.debug:
-    var: ansible_facts.services
+  ansible.builtin.assert:
+    that:
+      - ansible_facts.services['zookeeper.service']['state'] == 'running'

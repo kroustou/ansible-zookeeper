@@ -5,15 +5,15 @@ driver:
   name: docker
 platforms:
   - name: instance
-    image: docker.io/pycontribs/ubuntu
+    image: jrei/systemd-ubuntu
     groups:
       - zookeeper
   - name: instance2
-    image: docker.io/pycontribs/ubuntu
+    image: jrei/systemd-ubuntu
     groups:
       - zookeeper
   - name: instance3
-    image: docker.io/pycontribs/ubuntu
+    image: jrei/systemd-ubuntu
     groups:
       - zookeeper
 provisioner:

@@ -1,12 +1,11 @@
 TODO
 ====
-- Validate that the service is running
-- Validate that the cluster is healthy
+- Validate that the service is running (molecule)
+- Validate that the cluster is healthy (molecule)
 - https://zookeeper.apache.org/doc/current/zookeeperAdmin.html
 - Close http server
 - Update README.md
    - role variables
    - how it works
-- galaxy_requirements
 - Set up CI
 - Set up CD

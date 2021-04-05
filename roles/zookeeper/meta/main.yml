@@ -1,18 +1,6 @@
 galaxy_info:
   author: Kroustouris Stavros
   description: This role installs zookeeper on ubuntu
-
-  # If the issue tracker for your role is not on github, uncomment the
-  # next line and provide a value
-  # issue_tracker_url: http://example.com/issue/tracker
-
-  # Choose a valid license ID from https://spdx.org - some suggested licenses:
-  # - BSD-3-Clause (default)
-  # - MIT
-  # - GPL-2.0-or-later
-  # - GPL-3.0-only
-  # - Apache-2.0
-  # - CC-BY-4.0
   license: license (GPL-2.0-or-later, MIT, etc)
 
   min_ansible_version: 2.9
@@ -27,3 +15,5 @@ galaxy_info:
     - zookeeper
 
 dependencies: []
+collections:
+- community.general
