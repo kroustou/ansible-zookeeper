@@ -4,3 +4,5 @@
   hosts: zookeeper
   roles:
     - role: zookeeper
+      vars:
+        zookeeper_http_enabled: false
