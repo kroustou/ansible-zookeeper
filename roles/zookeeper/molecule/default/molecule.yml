@@ -8,8 +8,6 @@ platforms:
     image: jrei/systemd-ubuntu
     groups:
       - zookeeper
-    privileged: True
-    command: /sbin/init
 provisioner:
   name: ansible
 verifier:

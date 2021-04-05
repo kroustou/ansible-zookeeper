@@ -4,6 +4,24 @@
   hosts: all
   gather_facts: false
   tasks:
-  - name: Example assertion
-    assert:
-      that: true
+  - name: Start server
+    ansible.builtin.command: "./zkServer.sh start"
+    args:
+      chdir: "/opt/zookeeper/bin/"
+    become: yes
+    become_user: zookeeper
+
+  - name: Get status
+    ansible.builtin.command: "./zkServer.sh status"
+    args:
+      chdir: "/opt/zookeeper/bin/"
+    become: yes
+    become_user: zookeeper
+    become: yes
+    become_user: zookeeper
+    register: result
+
+  - name: Verify
+    ansible.builtin.assert:
+      that:
+        - "'Mode: standalone' in result.stdout"
