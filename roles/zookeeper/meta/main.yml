@@ -1,4 +1,5 @@
 galaxy_info:
+  role_name: zookeeper
   author: Kroustouris Stavros
   description: This role installs zookeeper on ubuntu
   license: license (GPL-2.0-or-later, MIT, etc)

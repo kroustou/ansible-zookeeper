@@ -5,7 +5,7 @@ initLimit=10
 syncLimit=5
 admin.enableServer={{ zookeeper_http_enabled }}
 {% for host in groups['zookeeper'] %}
-    {% if hostvars[host]['ansible_env'].SSH_CONNECTION -%}
-server.{{ loop.index }}={{ hostvars[host]['ansible_env'].SSH_CONNECTION.split(' ')[2] }}:2888:3888
+    {%- if 'SSH_CONNECTION' in hostvars[host]['ansible_env'] %}
+server.{{ loop.index }}={{ hostvars[host]['ansible_env']['SSH_CONNECTION'].split(' ')[2] }}:2888:3888
     {% endif -%}
 {% endfor %}
